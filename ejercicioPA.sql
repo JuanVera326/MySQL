@@ -40,6 +40,9 @@ create table entregas_inv(
     foreign key (id_proveedores) references proveedores (id_proveedor),
     foreign key (id_productos) references productos (id_producto)
 );
+/*-------------------------------------------------------------------------------*/
+/*----------------------------REGISTRO-------------------------------*/
+/*-------------------------------------------------------------------------------*/
 
 /*---------------------------AGREGAR CLIENTE-----------------------------------*/
  DELIMITER $$
@@ -114,11 +117,81 @@ create procedure sp_insertar_entrega(
 	id_pro varchar(45),
     id_prod varchar(45))
 	BEGIN
-		insert into entregas_inv values (id_pro,id_prod);
+		insert into entregas_inv values (id_prod,id_pro);
     END; $$
     
 DELIMITER ;
 
-call sp_insertar_entrega("000-001","555-000");
-call sp_insertar_entrega("000-002","556-000");
+call sp_insertar_entrega("555-000","000-001");
+call sp_insertar_entrega("556-000","000-002");
+
+/*-------------------------------------------------------------------------------*/
+/*--------------------------CONSULTAS--------------------------*/
+/*-------------------------------------------------------------------------------*/
+
+/*---------------------------CONSULTAR CLIENTE-----------------------------------*/
+ DELIMITER $$
+create procedure sp_consultar_cliente(
+	id varchar(45))
+	BEGIN
+		select * from clientes where id_cliente = (id);
+    END; $$
+    
+DELIMITER ;
+
+call sp_consultar_cliente("111");
+call sp_consultar_cliente("222");
+/*-------------------------------------------------------------------------------*/
+/*---------------------------CONSULTAR PRODUCTO-----------------------------------*/
+ DELIMITER $$
+create procedure sp_consultar_producto(
+	id varchar(45))
+	BEGIN
+		select * from productos where id_producto = (id);
+    END; $$
+    
+DELIMITER ;
+
+call sp_consultar_producto("555-000");
+call sp_consultar_producto("556-000");
+/*-------------------------------------------------------------------------------*/
+/*---------------------------CONSULTAR PROVEEDOR-----------------------------------*/
+ DELIMITER $$
+create procedure sp_consultar_proveedor(
+	id varchar(45))
+	BEGIN
+		select * from proveedores where id_proveedor = (id);
+    END; $$
+    
+DELIMITER ;
+
+call sp_consultar_proveedor("000-001");
+call sp_consultar_proveedor("000-002");
+/*-------------------------------------------------------------------------------*/
+/*---------------------------CONSULTAR VENTAS-----------------------------------*/
+ DELIMITER $$
+create procedure sp_consultar_venta(
+	id varchar(45))
+	BEGIN
+		select * from ventas where id_venta = (id);
+    END; $$
+    
+DELIMITER ;
+
+call sp_consultar_venta("111");
+call sp_consultar_venta("222");
+/*-------------------------------------------------------------------------------*/
+/*---------------------------CONSULTAR ENTREGAS-----------------------------------*/
+ DELIMITER $$
+create procedure sp_consultar_entrega(
+	id_pro varchar(45))
+	BEGIN
+		select * from entregas_inv where id_productos = (id_pro);
+    END; $$
+    
+DELIMITER ;
+
+call sp_consultar_entrega("555-000");
+call sp_consultar_entrega("556-000");
+
 /*-------------------------------------------------------------------------------*/
