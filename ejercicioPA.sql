@@ -195,3 +195,73 @@ call sp_consultar_entrega("555-000");
 call sp_consultar_entrega("556-000");
 
 /*-------------------------------------------------------------------------------*/
+/*--------------------------ACTUALIZACION--------------------------*/
+/*-------------------------------------------------------------------------------*/
+
+/*---------------------------ACTUALIZAR CLIENTE-----------------------------------*/
+ DELIMITER $$
+create procedure sp_actualizar_cliente(
+	id varchar(45),
+    nomb varchar(45),
+    tel varchar(45),
+    ciu varchar(30))
+	BEGIN
+		UPDATE clientes SET nombre_cliente = nomb ,telefono = tel ,ciudad = ciu where id_cliente = id;
+    END; $$
+    
+DELIMITER ;
+
+call sp_actualizar_cliente("111","Juan J","879465","Armenia");
+call sp_actualizar_cliente("222","Jose A","879466","Cali");
+/*-------------------------------------------------------------------------------*/
+/*---------------------------ACTUALIZAR PRODUCTO-----------------------------------*/
+ DELIMITER $$
+create procedure sp_actualizar_producto(
+	id varchar(45),
+    nomb varchar(45),
+    val double,
+    marca varchar(100),
+    tip varchar (20),
+    prov varchar (45))
+	BEGIN
+		UPDATE productos SET nombre_producto = nomb ,valor_producto = val, marcaMmodelo_producto = marca, tipo_producto = tip, proveedor_producto = prov where id_producto = id;
+    END; $$
+    
+DELIMITER ;
+
+call sp_actualizar_producto("555-000","PC Gamer","6000000","Asus ROG Desktop","Ordenador","000-001");
+call sp_actualizar_producto("556-000","PC Gamer","6500000","Acer Predator 500 Laptop","Ordenador","000-002");
+/*-------------------------------------------------------------------------------*/
+/*---------------------------ACTUALIZAR PROVEEDOR-----------------------------------*/
+ DELIMITER $$
+create procedure sp_actualizar_proveedor(
+	id varchar(45),
+    raz varchar(45),
+    nomb varchar(45),
+    dir varchar(60),
+    ciu varchar(20),
+    tel varchar (30))
+	BEGIN
+		UPDATE proveedores SET razon_sociial = raz, nombre_provedor = nomb, direccion_proveedor = dir, ciudad_proveedor = ciu, telefono_proveedor = tel where id_proveedor = id;
+    END; $$
+    
+DELIMITER ;
+
+call sp_actualizar_proveedor("000-001","Entregas Muy Rapidas","Elvis Ioso","Calle x # xx-xx","Armenia","789456");
+call sp_actualizar_proveedor("000-002","Entregas Super Rapidas","Susana Horia Hernandez","Carrera x # xx-xx","Pereira","123456");
+/*-------------------------------------------------------------------------------*/
+/*---------------------------ACTUALIZAR VENTAS-----------------------------------*/
+ DELIMITER $$
+create procedure sp_actualizar_venta(
+	id varchar(45),
+    fec datetime)
+	BEGIN
+		UPDATE ventas SET fecha_transaccion = fec where id_venta = id;
+    END; $$
+    
+DELIMITER ;
+
+
+call sp_actualizar_venta("111","2032-1-1");
+call sp_actualizar_venta("222","2000-12-12");
+/*-------------------------------------------------------------------------------*/
