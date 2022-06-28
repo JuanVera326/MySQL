@@ -30,15 +30,15 @@ CREATE TABLE ventas(
 	id_venta varchar(45),
     productos_venta varchar(45),
     fecha_transaccion datetime,
-    foreign key (id_venta) references clientes (id_cliente),
-    foreign key (productos_venta) references productos (id_producto)
+    foreign key (id_venta) references clientes (id_cliente)on delete cascade,
+    foreign key (productos_venta) references productos (id_producto) on delete cascade
 );
 
 create table entregas_inv(
 	id_proveedores varchar (45),
     id_productos varchar (45),
-    foreign key (id_proveedores) references proveedores (id_proveedor),
-    foreign key (id_productos) references productos (id_producto)
+    foreign key (id_proveedores) references proveedores (id_proveedor)on delete cascade,
+    foreign key (id_productos) references productos (id_producto)on delete cascade
 );
 /*-------------------------------------------------------------------------------*/
 /*----------------------------REGISTRO-------------------------------*/
@@ -119,7 +119,7 @@ create procedure sp_insertar_entrega(
 	BEGIN
 		insert into entregas_inv values (id_prod,id_pro);
     END; $$
-    
+		
 DELIMITER ;
 
 call sp_insertar_entrega("555-000","000-001");
@@ -264,4 +264,20 @@ DELIMITER ;
 
 call sp_actualizar_venta("111","2032-1-1");
 call sp_actualizar_venta("222","2000-12-12");
+/*-------------------------------------------------------------------------------*/
+/*--------------------------ELIMINACION--------------------------*/
+/*-------------------------------------------------------------------------------*/
+
+/*---------------------------ELIMINAR EN CASCADA-----------------------------------*/
+ DELIMITER $$
+create procedure sp_eliminar_cliente(
+	id varchar(45))
+	BEGIN
+		DELETE FROM clientes where id_cliente = id;
+    END; $$
+    
+DELIMITER ;
+
+call sp_eliminar_cliente("111");
+call sp_eliminar_cliente("222");
 /*-------------------------------------------------------------------------------*/
